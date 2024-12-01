@@ -1,0 +1,83 @@
+version: '3'
+
+services:
+
+  # PHP Service
+  application:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    image: digitalocean.com/php
+    container_name: application
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: application
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network-application
+
+  # Nginx Service
+  server:
+    image: nginx:alpine
+    container_name: server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network-application
+
+  # MySQL Service
+  database:
+    image: mysql:latest
+    container_name: database
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: events
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - databasedata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network-application
+
+  # phpMyAdmin Service (newly added)
+  phpmyadminascendia:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadminascendia
+    restart: unless-stopped
+    environment:
+      PMA_HOST: database  # The name of the MySQL service to connect to
+      PMA_USER: admin  # The MySQL user you created
+      PMA_PASSWORD: admin  # The password for that user
+      MYSQL_ROOT_PASSWORD: root  # The MySQL root password
+    ports:
+      - "8080:80"  # Exposing phpMyAdmin on port 8080
+    networks:
+      - app-network-application
+    depends_on:
+      - database  # Make sure phpMyAdmin starts after the db service
+
+# Docker Networks
+networks:
+  app-network-application:
+    driver: bridge
+
+# Volumes
+volumes:
+  databasedata:
+    driver: local
