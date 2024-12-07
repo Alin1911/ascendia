@@ -1,10 +1,10 @@
 FROM php:8.2-fpm
 
 # Copy composer.lock and composer.json
-COPY app/composer.lock app/composer.json /var/www/
+COPY app/composer.lock app/composer.json /var/www/app/
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/app
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
