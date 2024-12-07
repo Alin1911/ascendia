@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { toast } from "@/components/ui/use-toast"
 import { Users, Mail, CheckCircle } from 'lucide-react'
 import { Link } from "react-router-dom";
 
@@ -18,17 +17,7 @@ export default function DataCollection() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Here you would typically send the data to your backend
-    // For this example, we'll simulate an API call with a timeout
     await new Promise(resolve => setTimeout(resolve, 1000))
-
-    // Show success message
-    toast({
-      title: "Successfully registered!",
-      description: "We'll notify you when Ascendia is ready.",
-      icon: <CheckCircle className="h-5 w-5 text-green-500" />,
-    })
-
     setIsSubmitting(false)
     setEmail('')
     setRole('')

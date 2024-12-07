@@ -21,11 +21,11 @@ export default function Layout() {
           <Link to="/register" className="text-blue-900 hover:text-blue-700">Become a Mentor</Link>
         </nav>
         <div>
-          <Button className="bg-[#65a30d] hover:bg-[#14532d] text-white mx-2">
-            <Link to="/login">Login</Link>
+          <Button className="bg-green-500 hover:bg-green-600 text-white mx-2">
+             <Link to="/enroll">Login</Link>
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-            <Link to="/register">Sign Up</Link>
+            <Link to="/enroll">Sign Up</Link>
           </Button>
         </div>
       </header>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search,Calendar, Star } from "lucide-react"
 import React from "react"
+import { Link } from "react-router-dom";
 
 export default function LandingPageComponent() {
   return (
@@ -22,7 +23,7 @@ export default function LandingPageComponent() {
               placeholder="What skill do you want to learn?"
             />
             <Button className="bg-green-500 hover:bg-green-600 text-white">
-              Find a Mentor
+              <Link to="/enroll">Find a Mentor</Link>
             </Button>
           </div>
         </section>
@@ -102,7 +103,7 @@ export default function LandingPageComponent() {
               Join Ascendia today and take the first step towards achieving your goals.
             </p>
             <Button className="bg-green-500 hover:bg-green-600 text-white text-lg px-8 py-3">
-              Get Started Now
+              <Link to="/enroll">Get Started Now</Link>
             </Button>
           </div>
         </section>

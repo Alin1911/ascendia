@@ -16,6 +16,7 @@ import AboutUs from "./components/about-us"
 import TermsOfService from "./components/terms-of-service"
 import PrivacyPolicy from "./components/privacy-policy"
 import Layout from "./layout";
+import DataCollection from "./components/data-collection";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="terms-of-service" element={<TermsOfService />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="enroll" element={<DataCollection />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Route>
       </Routes>
