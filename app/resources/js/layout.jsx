@@ -30,7 +30,7 @@ export default function Layout() {
         </div>
       </header>
 
-      <main>
+      <main style="min-height: 80vh;">
         <Outlet />
       </main>
 
