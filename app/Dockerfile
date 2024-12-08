@@ -23,8 +23,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     openssl \
     libonig-dev \
-    php-xml \                  # Install ext-xml (xml extension)
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    php-xml && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
