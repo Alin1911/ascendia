@@ -39,12 +39,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
 # Set permissions for Laravel directories
-RUN mkdir -p /var/www/app \
-    && chown -R www:www /var/www
+RUN mkdir -p /var/www/app && chown -R www:www /var/www/app
 
 # Copy Laravel app files
 COPY ./app /var/www/app
 COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
+
+# Ensure vendor directory exists with proper permissions
+RUN mkdir -p /var/www/app/vendor && chown -R www:www /var/www/app/vendor
 
 # Change ownership of the application
 RUN chown -R www:www /var/www/app
