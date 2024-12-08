@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     lsb-release \
     curl \
+    gnupg \
     && curl -fsSL https://packages.sury.org/php/apt.gpg | tee /etc/apt/trusted.gpg.d/sury.asc \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -c | awk '{print $2}') main" | tee /etc/apt/sources.list.d/sury-php.list \
     && apt-get update && apt-get install -y \
