@@ -3,8 +3,15 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www/app
 
-# Install system dependencies
+# Install system dependencies and add repository for PHP extensions
 RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    apt-transport-https \
+    lsb-release \
+    curl \
+    && curl -fsSL https://packages.sury.org/php/apt.gpg | tee /etc/apt/trusted.gpg.d/sury.asc \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -c | awk '{print $2}') main" | tee /etc/apt/sources.list.d/sury-php.list \
+    && apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
