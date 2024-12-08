@@ -1,18 +1,13 @@
 FROM php:8.2-fpm
 
-# Set working directory
-WORKDIR /var/www/app
+# Copy composer.lock and composer.json
+COPY app/composer.lock app/composer.json /var/www/
 
-# Install system dependencies and add repository for PHP extensions
+# Set working directory
+WORKDIR /var/www
+
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    apt-transport-https \
-    lsb-release \
-    curl \
-    gnupg \
-    && curl -fsSL https://packages.sury.org/php/apt.gpg | tee /etc/apt/trusted.gpg.d/sury.asc \
-    && echo "deb https://packages.sury.org/php/ $(lsb_release -c | awk '{print $2}') main" | tee /etc/apt/sources.list.d/sury-php.list \
-    && apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
@@ -30,40 +25,35 @@ RUN apt-get update && apt-get install -y \
     npm \
     wget \
     openssl \
-    libonig-dev \
-    php8.2-xml && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo_mysql mbstring zip exif pcntl
+RUN apt-get update && apt-get install -y libonig-dev
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd
 
 # Install the PHP Redis extension
 RUN pecl install redis && docker-php-ext-enable redis
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Composer globally
+# Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Add user for Laravel application
-RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
 
-# Set permissions for Laravel directories
-RUN mkdir -p /var/www/app && chown -R www:www /var/www/app
+# Copy existing application directory contents
+COPY . /var/www
 
-# Copy Laravel app files
-COPY ./app /var/www/app
-COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
+# Copy existing application directory permissions
+COPY --chown=www:www . /var/www
 
-# Ensure vendor directory exists with proper permissions
-RUN mkdir -p /var/www/app/vendor && chown -R www:www /var/www/app/vendor
-
-# Change ownership of the application
-RUN chown -R www:www /var/www/app
-
-# Switch to non-root user
+# Change current user to www
 USER www
-
-# Run Composer install as the non-root user
-RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/app
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
