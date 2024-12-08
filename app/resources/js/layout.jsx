@@ -30,7 +30,7 @@ export default function Layout() {
         </div>
       </header>
 
-      <main style="min-height: 80vh;">
+      <main style={{ minHeight: '80vh' }}>
         <Outlet />
       </main>
 
