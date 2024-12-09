@@ -4,7 +4,7 @@
     "name": "client"
   },
   "resources/css/app.css": {
-    "file": "assets/app-D5f1RcGt.css",
+    "file": "assets/app-DiFvLGR3.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -18,7 +18,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-25-AgmQJ.js",
+    "file": "assets/app-_jYgKwSA.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
