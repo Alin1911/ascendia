@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Users, Mail, CheckCircle } from 'lucide-react'
 import { Link } from "react-router-dom";
+import posthog from 'posthog-js'
 
 export default function DataCollection() {
   const [email, setEmail] = useState('')
@@ -17,11 +18,18 @@ export default function DataCollection() {
     e.preventDefault()
     setIsSubmitting(true)
 
+    posthog.capture('Waitlist Submission', { email, role })
+    
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSubmitting(false)
     setEmail('')
     setRole('')
   }
+
+  useEffect(() => {
+    posthog.capture('Data Collection Page');
+  }
+  , []);
 
   return (
       <div className="container mx-auto px-4 py-12">

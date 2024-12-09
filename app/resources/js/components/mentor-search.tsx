@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,10 +16,16 @@ import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Search, DollarSign, Clock, Briefcase } from 'lucide-react'
+import posthog from 'posthog-js'
 
 export default function MentorSearchComponent() {
   const [priceRange, setPriceRange] = useState([0, 200])
 
+  useEffect(() => {
+    posthog.capture('Mentor Search Page');
+  }
+  , []);
+  
   return (
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">

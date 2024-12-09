@@ -2,10 +2,16 @@
 
 import { Button } from "@/components/ui/button"
 import { Users, Search, Calendar, Star, MessageCircle, Award } from 'lucide-react'
-import React from "react";
+import posthog from "posthog-js";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function HowItWorks() {
+  useEffect(() => {
+    posthog.capture('How It Works Page');
+  }
+  , []);
+  
   return (
     <div className="container mx-auto py-20">
         <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-8 text-center">How Ascendia Works</h1>

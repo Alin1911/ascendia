@@ -3,10 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search,Calendar, Star } from "lucide-react"
-import React from "react"
+import posthog from "posthog-js"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom";
 
 export default function LandingPageComponent() {
+
+  useEffect(() => {
+    posthog.capture('Landing Page');
+  }
+  , []);
+  
   return (
       <main>
         {/* Hero Section */}

@@ -3,6 +3,7 @@ import { Button } from './components/ui/button';
 import { Users } from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { PHProvider } from './provider.jsx';
 
 export default function Layout() {
   return (
@@ -31,7 +32,9 @@ export default function Layout() {
       </header>
 
       <main style={{ minHeight: '80vh' }}>
-        <Outlet />
+        <PHProvider>
+          <Outlet />
+        </PHProvider>
       </main>
 
       <footer className="bg-blue-900 text-white py-10">
