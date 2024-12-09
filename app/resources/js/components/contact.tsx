@@ -4,10 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Users, Mail, Phone, MapPin } from 'lucide-react'
-import React from "react"
+import posthog from "posthog-js"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom";
 
 export default function Contact() {
+  useEffect(() => {
+    posthog.capture('Contact Page');
+  }
+  , []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-12">

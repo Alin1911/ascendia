@@ -2,10 +2,16 @@
 
 import { Button } from "@/components/ui/button"
 import { Users } from 'lucide-react'
-import React from "react";
+import posthog from "posthog-js";
+import React, { use, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function TermsOfService() {
+  useEffect(() => {
+    posthog.capture('Terms of Service Page');
+  }
+  , []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-12">

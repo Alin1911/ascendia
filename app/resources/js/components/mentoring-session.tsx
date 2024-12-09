@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Mic, MicOff, Video, VideoOff, Phone, MessageSquare, Share, MoreVertical, Send, PlusCircle, FileText } from 'lucide-react'
+import posthog from 'posthog-js'
 
 export default function MentoringSessionComponent() {
   const [messages, setMessages] = useState([
@@ -20,11 +21,17 @@ export default function MentoringSessionComponent() {
   const [newMessage, setNewMessage] = useState('')
 
   const sendMessage = () => {
+    posthog.capture('Sent Message', { sender: 'mentee' })
     if (newMessage.trim()) {
       setMessages([...messages, { sender: 'mentee', content: newMessage.trim() }])
       setNewMessage('')
     }
   }
+
+  useEffect(() => {
+    posthog.capture('Mentoring Session Page');
+  }
+  , []);
 
   return (
     <div className="flex flex-col mb-20 bg-white mx-auto border rounded container">

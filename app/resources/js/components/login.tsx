@@ -5,9 +5,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import React from "react";
+import React, { useEffect } from "react";
+import posthog from "posthog-js";
 
 export default function Login() {
+  useEffect(() => {
+    posthog.capture('Login Page');
+  }
+  , []);
+  
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">

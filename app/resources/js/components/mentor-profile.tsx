@@ -1,16 +1,22 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, Clock, DollarSign, Globe, Mail, MapPin, Phone, Star, Video } from 'lucide-react'
+import posthog from 'posthog-js'
 
 export default function MentorProfileComponent() {
   const [activeTab, setActiveTab] = useState("about")
 
+  useEffect(() => {
+    posthog.capture('Mentor Profile Page');
+  }
+  , []);
+  
   const mentor = {
     name: "Dr. Emily Chen",
     title: "AI Research Scientist & Tech Entrepreneur",

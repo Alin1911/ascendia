@@ -4,9 +4,15 @@ import { Button } from "@/components/ui/button"
 import { Users, Heart, Globe, Lightbulb, Award, Linkedin } from 'lucide-react'
 import { Link } from "react-router-dom";
 import { Img } from 'react-image';
-import React from "react";
+import React, { useEffect } from "react";
+import posthog from "posthog-js";
 
 export default function AboutUs() {
+  useEffect(() => {
+    posthog.capture('About Us Page');
+  }
+  , []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-12">

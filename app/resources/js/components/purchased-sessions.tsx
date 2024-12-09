@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, Contact, MessageCircle, Video } from 'lucide-react'
+import posthog from 'posthog-js'
 
 export default function PurchasedSessionsComponent() {
   const [activeSessions, setActiveSessions] = useState([
@@ -74,6 +75,11 @@ export default function PurchasedSessionsComponent() {
     }
   ])
 
+  useEffect(() => {
+    posthog.capture('Purchased Sessions Page');
+  }
+  , []);
+  
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">My Mentoring Sessions</h1>
