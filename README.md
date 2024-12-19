@@ -1,66 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img src="https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/assets/49280352/cb88bac9-2517-41fe-805e-b81423e64eca" alt="cover" align="center">
+  <h3 align="center">Docker Laravel MySQL Nginx Starter</h3>
+  <p align="center">
+    Project Starter For Web Application Development with Laravel, MySQL, Nginx, and Docker.
+    <br />
+  </p>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
 
-## About Laravel
+  <a href="">[![Contributors][contributors-shield]][contributors-url]</a>
+  <a href="">[![Stargazers][stars-shield]][stars-url]</a>
+  <a href="">[![Issues][issues-shield]][issues-url]</a>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- ABOUT THE PROJECT -->
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* [Docker](https://www.docker.com/)
+* [Dockerfile with Alpine](https://hub.docker.com/_/alpine)
+* [Nginx](https://www.nginx.com)
+* [Laravel 11](https://laravel.com/)
+* [MySQL](https://www.mysql.com/)
+* [PHP 8.2](https://nodejs.org)
+* [Node](https://nodejs.org)
+* [NPM](https://www.npmjs.com)
+* [PHP Prettier](https://github.com/prettier/plugin-php)
+* [Github Action To Run Prettier Check](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/actions)
+* [Github Action To Run PHP Unit Test](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/actions)
 
-## Learning Laravel
+<!-- GETTING STARTED -->
+## Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Follow the instructions below to set up your project.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Download and Install [Docker](https://docs.docker.com/engine/install/)
 
-## Laravel Sponsors
+### Clone This Template For Your Project
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- By Clicking Use This Template Button or You can Click [Here](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/generate)
 
-### Premium Partners
+![image](https://user-images.githubusercontent.com/49280352/156305925-c7e3f2f2-c458-4b0b-ad1c-32fcaec50e1d.png)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<!-- USAGE EXAMPLES -->
+## Run App With GNU Make (UNIX Based OS: MacOS, Linux)
 
-## Contributing
+- `make run-app-with-setup` : build docker and start all docker containers with Laravel setup
+- `make run-app-with-setup-db` : build docker and start all docker containers with Laravel setup + database migration and seeder
+- `make run-app` : start all docker container
+- `make kill-app` : kill all docker container
+- `make enter-nginx-container` : enter docker nginx container
+- `make enter-php-container` : enter docker php container
+- `make enter-mysql-container` : enter docker mysql container
+- `make flush-db` : run php migrate fresh command
+- `make flush-db-with-seeding` : run php migrate fresh command with seeding
+- `make code-format-check` : run npm command to run prettier to check your code
+- `make code-format`: run npm command to run prettier to format your code
+- `make code-test`: run php artisan test command
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<!-- USAGE EXAMPLES -->
+## Run App Manually
 
-## Code of Conduct
+![preview-docker-laravel](https://user-images.githubusercontent.com/49280352/131224609-401fcd2b-a815-49f2-8164-b6d9b77df87c.gif)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Create .env file for the Laravel environment from .env.example on src folder
+- Run command ```docker-compose build``` on your terminal
+- Run command ```docker-compose up -d``` on your terminal
+- Run command ```composer install``` on your terminal after going into the php container on docker
+- Run command ```docker exec -it php /bin/sh``` on your terminal
+- Run command ```chmod -R 777 storage``` on your terminal after going into the php container on docker
+- If app:key still empty on .env run ```php artisan key:generate``` on your terminal after going into the php container on docker
+- To run artisan commands like migrate, etc. go to php container using ```docker exec -it php /bin/sh```
+- Go to http://localhost:8001 or any port you set to open Laravel
 
-## Security Vulnerabilities
+## Notes
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- If you encounter a permission error when running Docker, try running it as an administrator or using ```sudo``` in Linux.
+- Check the summary of new features in Laravel 11 [here](https://laraveldaily.com/post/laravel-11-main-new-features-changes) or on the official page [here](https://laravel.com/docs/11.x/releases).
+- Right now, I will postpone upgrading to PHP 8.3 because the PHP Plugin in Prettier is not supported yet. [Check the issues here](https://github.com/prettier/plugin-php/issues/2299).
+- Don't forget to run ```npm run format``` inside your php container or run ```make code-format``` before you push your code.
+- Don't forget to run ```php artisan test``` inside your php container or run ```make code-test``` before you push your code.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
+[contributors-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
+[forks-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/network/members
+[stars-shield]: https://img.shields.io/github/stars/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
+[stars-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
+[issues-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/issues
+[license-shield]: https://img.shields.io/github/license/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
+[license-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png
