@@ -1,34 +1,30 @@
 {
-  "_client-CRXo4waM.js": {
-    "file": "assets/client-CRXo4waM.js",
-    "name": "client"
-  },
-  "resources/css/app.css": {
-    "file": "assets/app-B3SmZNXC.css",
-    "src": "resources/css/app.css",
-    "isEntry": true
-  },
-  "resources/js/app.js": {
-    "file": "assets/app-DB4fpZ-S.js",
-    "name": "app",
-    "src": "resources/js/app.js",
-    "isEntry": true,
-    "imports": [
-      "_client-CRXo4waM.js"
-    ]
-  },
-  "resources/js/app.jsx": {
-    "file": "assets/app-bw1iHX1u.js",
-    "name": "app",
-    "src": "resources/js/app.jsx",
-    "isEntry": true,
-    "imports": [
-      "_client-CRXo4waM.js"
-    ]
-  },
-  "resources/sass/app.scss": {
-    "file": "assets/app-BaVMVknW.css",
-    "src": "resources/sass/app.scss",
-    "isEntry": true
-  }
+    "_client-CRXo4waM.js": {
+        "file": "assets/client-CRXo4waM.js",
+        "name": "client"
+    },
+    "resources/css/app.css": {
+        "file": "assets/app-B3SmZNXC.css",
+        "src": "resources/css/app.css",
+        "isEntry": true
+    },
+    "resources/js/app.js": {
+        "file": "assets/app-DB4fpZ-S.js",
+        "name": "app",
+        "src": "resources/js/app.js",
+        "isEntry": true,
+        "imports": ["_client-CRXo4waM.js"]
+    },
+    "resources/js/app.jsx": {
+        "file": "assets/app-bw1iHX1u.js",
+        "name": "app",
+        "src": "resources/js/app.jsx",
+        "isEntry": true,
+        "imports": ["_client-CRXo4waM.js"]
+    },
+    "resources/sass/app.scss": {
+        "file": "assets/app-BaVMVknW.css",
+        "src": "resources/sass/app.scss",
+        "isEntry": true
+    }
 }
