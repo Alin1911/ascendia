@@ -1,29 +1,29 @@
 {
-  "_client-CRXo4waM.js": {
-    "file": "assets/client-CRXo4waM.js",
+  "_client-Bx8gx_AZ.js": {
+    "file": "assets/client-Bx8gx_AZ.js",
     "name": "client"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DMWNEqZJ.css",
+    "file": "assets/app-B18xOl_O.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DB4fpZ-S.js",
+    "file": "assets/app-DBzyW-11.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_client-CRXo4waM.js"
+      "_client-Bx8gx_AZ.js"
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-C9s1hj6d.js",
+    "file": "assets/app-DznP4PKf.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "imports": [
-      "_client-CRXo4waM.js"
+      "_client-Bx8gx_AZ.js"
     ]
   },
   "resources/sass/app.scss": {
