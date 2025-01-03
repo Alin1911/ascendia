@@ -1,19 +1,32 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search,Calendar, Star } from "lucide-react"
-import posthog from "posthog-js"
-import React, { useEffect } from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Search, Calendar, Star } from "lucide-react";
+import posthog from "posthog-js";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function LandingPageComponent() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    posthog.capture('Landing Page');
-  }
-  , []);
-  
+    posthog.capture("Landing Page");
+  }, []);
+
+  const handleSearch = () => {
+    navigate(`/mentor-search?searchQuery=${encodeURIComponent(searchQuery)}`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
       <main>
         {/* Hero Section */}
@@ -25,13 +38,19 @@ export default function LandingPageComponent() {
             Connect with qualified mentors who can guide you towards your personal and professional goals.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-            <Input 
-              className="max-w-xs" 
-              placeholder="What skill do you want to learn?"
-            />
-            <Button className="bg-green-500 hover:bg-green-600 text-white">
-              <Link to="/enroll">Find a Mentor</Link>
-            </Button>
+          <Input
+            className="max-w-xs"
+            placeholder="What skill do you want to learn?"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <Button
+            className="bg-green-500 hover:bg-green-600 text-white"
+            onClick={handleSearch}
+          >
+            Find a Mentor
+          </Button>
           </div>
         </section>
 

@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,59 +15,28 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star, Search, DollarSign, Clock, Briefcase } from 'lucide-react';
-import posthog from 'posthog-js';
+import { Star, Search, DollarSign, Clock, Briefcase } from "lucide-react";
+import posthog from "posthog-js";
 
 export default function MentorSearchComponent() {
+  const [searchParams] = useSearchParams();
   const [priceRange, setPriceRange] = useState([0, 200]);
   const [mentors, setMentors] = useState([]);
   const [searchFilters, setSearchFilters] = useState({
-    searchQuery: '',
-    expertise: '',
+    searchQuery: searchParams.get("searchQuery") || "",
+    expertise: "",
     availableNow: false,
   });
 
   useEffect(() => {
-    posthog.capture('Mentor Search Page');
-    // Simulat GET request (decomentează când backend-ul este gata)
+    posthog.capture("Mentor Search Page");
+
     const fetchMentors = async () => {
       try {
-        const response = await axios.get('/mentors/search', { params: { ...searchFilters, priceRange } });
+        const response = await axios.get("/mentors/search", {
+          params: { ...searchFilters, priceRange },
+        });
         setMentors(response.data);
-
-        // Date de test
-        // setMentors([
-        //   {
-        //     name: "Alice Johnson",
-        //     title: "Business Strategy Consultant",
-        //     rating: 4.8,
-        //     ratingCount: 124,
-        //     hourlyRate: 85,
-        //     expertise: ['Business', 'Entrepreneurship', 'Marketing'],
-        //     yearsOfExperience: 12,
-        //     availableNow: true,
-        //   },
-        //   {
-        //     name: "David Lee",
-        //     title: "Senior Software Engineer",
-        //     rating: 4.9,
-        //     ratingCount: 89,
-        //     hourlyRate: 120,
-        //     expertise: ['Web Development', 'Machine Learning', 'Cloud Architecture'],
-        //     yearsOfExperience: 8,
-        //     availableNow: false,
-        //   },
-        //   {
-        //     name: "Emily Chen",
-        //     title: "UX/UI Design Lead",
-        //     rating: 4.7,
-        //     ratingCount: 56,
-        //     hourlyRate: 95,
-        //     expertise: ['User Experience', 'Product Design', 'Design Systems'],
-        //     yearsOfExperience: 6,
-        //     availableNow: true,
-        //   },
-        // ]);
       } catch (error) {
         console.error("Error fetching mentors:", error);
       }
@@ -86,7 +54,6 @@ export default function MentorSearchComponent() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8">Find Your Perfect Mentor</h1>
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Sidebar with filters */}
           <aside className="w-full md:w-1/4 space-y-6">
             <div>
               <Label htmlFor="search">Search</Label>
@@ -97,14 +64,14 @@ export default function MentorSearchComponent() {
                   placeholder="Search mentors..."
                   className="pl-8"
                   value={searchFilters.searchQuery}
-                  onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
+                  onChange={(e) => handleFilterChange("searchQuery", e.target.value)}
                 />
               </div>
             </div>
             <div>
               <Label>Expertise</Label>
               <Select
-                onValueChange={(value) => handleFilterChange('expertise', value)}
+                onValueChange={(value) => handleFilterChange("expertise", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select expertise" />
@@ -137,20 +104,19 @@ export default function MentorSearchComponent() {
               <Switch
                 id="available-now"
                 checked={searchFilters.availableNow}
-                onCheckedChange={(value) => handleFilterChange('availableNow', value)}
+                onCheckedChange={(value) => handleFilterChange("availableNow", value)}
               />
               <Label htmlFor="available-now">Available Now</Label>
             </div>
             <Button
               className="w-full"
               onClick={() => {
-                console.log('Filters applied:', searchFilters, priceRange);
+                console.log("Filters applied:", searchFilters, priceRange);
               }}
             >
               Apply Filters
             </Button>
           </aside>
-          {/* Main content area with mentor cards */}
           <div className="w-full md:w-3/4 space-y-6">
             {mentors.map((mentor, index) => (
               <MentorCard key={index} {...mentor} />
@@ -162,13 +128,27 @@ export default function MentorSearchComponent() {
   );
 }
 
-function MentorCard({ name, title, rating, ratingCount, hourlyRate, expertise, yearsOfExperience, availableNow }) {
+function MentorCard({
+  name,
+  title,
+  rating,
+  ratingCount,
+  hourlyRate,
+  expertise,
+  yearsOfExperience,
+  availableNow,
+}) {
   return (
     <div className="border rounded-lg p-6 flex flex-col md:flex-row gap-4">
       <div className="md:w-1/4">
         <Avatar className="h-24 w-24">
-          <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${name}`} alt={name} />
-          <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          <AvatarImage
+            src={`https://api.dicebear.com/6.x/initials/svg?seed=${name}`}
+            alt={name}
+          />
+          <AvatarFallback>
+            {name.split(" ").map((n) => n[0]).join("")}
+          </AvatarFallback>
         </Avatar>
       </div>
       <div className="md:w-3/4">
@@ -190,20 +170,27 @@ function MentorCard({ name, title, rating, ratingCount, hourlyRate, expertise, y
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
           {expertise.map((skill, index) => (
-            <Badge key={index} variant="secondary">{skill}</Badge>
+            <Badge key={index} variant="secondary">
+              {skill}
+            </Badge>
           ))}
         </div>
         <div className="mt-4 flex items-center gap-4">
           <div className="flex items-center">
-            <Briefcase className="h-4 w-4 text-muted-foreground mr-1" />
-            <span>{yearsOfExperience} years experience</span>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <span className="ml-1 text-sm text-muted-foreground">
+              {yearsOfExperience} years of experience
+            </span>
           </div>
-          <div className="flex items-center">
-            <Clock className="h-4 w-4 text-muted-foreground mr-1" />
-            <span>{availableNow ? 'Available now' : 'Not available'}</span>
-          </div>
+          {availableNow && (
+            <div className="flex items-center">
+              <Briefcase className="h-4 w-4 text-muted-foreground" />
+              <span className="ml-1 text-sm text-muted-foreground">
+                Available now
+              </span>
+            </div>
+          )}
         </div>
-        <Button className="mt-4">Book a Session</Button>
       </div>
     </div>
   );
