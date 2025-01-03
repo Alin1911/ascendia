@@ -1,118 +1,165 @@
-'use client'
+'use client';
 
-import React, { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+import React, { useEffect, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import axios from "axios";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Search, DollarSign, Clock, Briefcase } from 'lucide-react'
-import posthog from 'posthog-js'
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star, Search, DollarSign, Clock, Briefcase } from 'lucide-react';
+import posthog from 'posthog-js';
 
 export default function MentorSearchComponent() {
-  const [priceRange, setPriceRange] = useState([0, 200])
+  const [priceRange, setPriceRange] = useState([0, 200]);
+  const [mentors, setMentors] = useState([]);
+  const [searchFilters, setSearchFilters] = useState({
+    searchQuery: '',
+    expertise: '',
+    availableNow: false,
+  });
 
   useEffect(() => {
     posthog.capture('Mentor Search Page');
-  }
-  , []);
-  
+    // Simulat GET request (decomentează când backend-ul este gata)
+    const fetchMentors = async () => {
+      try {
+        const response = await axios.get('/mentors/search', { params: { ...searchFilters, priceRange } });
+        setMentors(response.data);
+
+        // Date de test
+        // setMentors([
+        //   {
+        //     name: "Alice Johnson",
+        //     title: "Business Strategy Consultant",
+        //     rating: 4.8,
+        //     ratingCount: 124,
+        //     hourlyRate: 85,
+        //     expertise: ['Business', 'Entrepreneurship', 'Marketing'],
+        //     yearsOfExperience: 12,
+        //     availableNow: true,
+        //   },
+        //   {
+        //     name: "David Lee",
+        //     title: "Senior Software Engineer",
+        //     rating: 4.9,
+        //     ratingCount: 89,
+        //     hourlyRate: 120,
+        //     expertise: ['Web Development', 'Machine Learning', 'Cloud Architecture'],
+        //     yearsOfExperience: 8,
+        //     availableNow: false,
+        //   },
+        //   {
+        //     name: "Emily Chen",
+        //     title: "UX/UI Design Lead",
+        //     rating: 4.7,
+        //     ratingCount: 56,
+        //     hourlyRate: 95,
+        //     expertise: ['User Experience', 'Product Design', 'Design Systems'],
+        //     yearsOfExperience: 6,
+        //     availableNow: true,
+        //   },
+        // ]);
+      } catch (error) {
+        console.error("Error fetching mentors:", error);
+      }
+    };
+
+    fetchMentors();
+  }, [searchFilters, priceRange]);
+
+  const handleFilterChange = (key, value) => {
+    setSearchFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
   return (
-      <main className="flex-1">
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-8">Find Your Perfect Mentor</h1>
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Sidebar with filters */}
-            <aside className="w-full md:w-1/4 space-y-6">
-              <div>
-                <Label htmlFor="search">Search</Label>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input id="search" placeholder="Search mentors..." className="pl-8" />
-                </div>
-              </div>
-              <div>
-                <Label>Expertise</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select expertise" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="technology">Technology</SelectItem>
-                    <SelectItem value="design">Design</SelectItem>
-                    <SelectItem value="marketing">Marketing</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>Price Range (per hour)</Label>
-                <Slider
-                  min={0}
-                  max={200}
-                  step={10}
-                  value={priceRange}
-                  onValueChange={setPriceRange}
-                  className="mt-2"
+    <main className="flex-1">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-8">Find Your Perfect Mentor</h1>
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Sidebar with filters */}
+          <aside className="w-full md:w-1/4 space-y-6">
+            <div>
+              <Label htmlFor="search">Search</Label>
+              <div className="relative">
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="search"
+                  placeholder="Search mentors..."
+                  className="pl-8"
+                  value={searchFilters.searchQuery}
+                  onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
                 />
-                <div className="flex justify-between mt-2">
-                  <span>RON{priceRange[0]}</span>
-                  <span>RON{priceRange[1]}</span>
-                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Switch id="available-now" />
-                <Label htmlFor="available-now">Available Now</Label>
-              </div>
-              <Button className="w-full">Apply Filters</Button>
-            </aside>
-            {/* Main content area with mentor cards */}
-            <div className="w-full md:w-3/4 space-y-6">
-              <MentorCard
-                name="Alice Johnson"
-                title="Business Strategy Consultant"
-                rating={4.8}
-                ratingCount={124}
-                hourlyRate={85}
-                expertise={['Business', 'Entrepreneurship', 'Marketing']}
-                yearsOfExperience={12}
-                availableNow={true}
-              />
-              <MentorCard
-                name="David Lee"
-                title="Senior Software Engineer"
-                rating={4.9}
-                ratingCount={89}
-                hourlyRate={120}
-                expertise={['Web Development', 'Machine Learning', 'Cloud Architecture']}
-                yearsOfExperience={8}
-                availableNow={false}
-              />
-              <MentorCard
-                name="Emily Chen"
-                title="UX/UI Design Lead"
-                rating={4.7}
-                ratingCount={56}
-                hourlyRate={95}
-                expertise={['User Experience', 'Product Design', 'Design Systems']}
-                yearsOfExperience={6}
-                availableNow={true}
-              />
-              {/* Add more MentorCard components as needed */}
             </div>
+            <div>
+              <Label>Expertise</Label>
+              <Select
+                onValueChange={(value) => handleFilterChange('expertise', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select expertise" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  <SelectItem value="business">Business</SelectItem>
+                  <SelectItem value="technology">Technology</SelectItem>
+                  <SelectItem value="design">Design</SelectItem>
+                  <SelectItem value="marketing">Marketing</SelectItem>
+                  <SelectItem value="0">Any</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Price Range (per hour)</Label>
+              <Slider
+                min={0}
+                max={200}
+                step={10}
+                value={priceRange}
+                onValueChange={setPriceRange}
+                className="mt-2"
+              />
+              <div className="flex justify-between mt-2">
+                <span>RON{priceRange[0]}</span>
+                <span>RON{priceRange[1]}</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="available-now"
+                checked={searchFilters.availableNow}
+                onCheckedChange={(value) => handleFilterChange('availableNow', value)}
+              />
+              <Label htmlFor="available-now">Available Now</Label>
+            </div>
+            <Button
+              className="w-full"
+              onClick={() => {
+                console.log('Filters applied:', searchFilters, priceRange);
+              }}
+            >
+              Apply Filters
+            </Button>
+          </aside>
+          {/* Main content area with mentor cards */}
+          <div className="w-full md:w-3/4 space-y-6">
+            {mentors.map((mentor, index) => (
+              <MentorCard key={index} {...mentor} />
+            ))}
           </div>
         </div>
-      </main>
-  )
+      </div>
+    </main>
+  );
 }
 
 function MentorCard({ name, title, rating, ratingCount, hourlyRate, expertise, yearsOfExperience, availableNow }) {
@@ -159,5 +206,5 @@ function MentorCard({ name, title, rating, ratingCount, hourlyRate, expertise, y
         <Button className="mt-4">Book a Session</Button>
       </div>
     </div>
-  )
+  );
 }
