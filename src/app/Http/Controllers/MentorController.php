@@ -17,6 +17,7 @@ class MentorController extends Controller
         // Datele de test
         $mentors = [
             [
+                "id" => 1,
                 "name" => "Alice Johnson",
                 "title" => "Business Strategy Consultant",
                 "rating" => 4.8,
@@ -27,6 +28,7 @@ class MentorController extends Controller
                 "availableNow" => true,
             ],
             [
+                "id" => 2,
                 "name" => "David Lee",
                 "title" => "Senior Software Engineer",
                 "rating" => 4.9,
@@ -37,6 +39,7 @@ class MentorController extends Controller
                 "availableNow" => false,
             ],
             [
+                "id" => 3,
                 "name" => "Emily Chen",
                 "title" => "UX/UI Design Lead",
                 "rating" => 4.7,

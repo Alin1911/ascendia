@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import {
   Select,
   SelectContent,
@@ -129,6 +131,7 @@ export default function MentorSearchComponent() {
 }
 
 function MentorCard({
+  id,
   name,
   title,
   rating,
@@ -138,6 +141,12 @@ function MentorCard({
   yearsOfExperience,
   availableNow,
 }) {
+  const navigate = useNavigate();
+
+  const handleViewProfile = () => {
+    navigate(`/mentor/${id}`);
+  };
+
   return (
     <div className="border rounded-lg p-6 flex flex-col md:flex-row gap-4">
       <div className="md:w-1/4">
@@ -191,7 +200,12 @@ function MentorCard({
             </div>
           )}
         </div>
-        <Button className="mt-4">Book a Session</Button>
+        <div className="mt-4 flex gap-4">
+          <Button className="bg-blue-500 text-white" onClick={handleViewProfile}>
+            View Profile
+          </Button>
+          <Button className="bg-green-500 text-white">Book a Session</Button>
+        </div>
       </div>
     </div>
   );

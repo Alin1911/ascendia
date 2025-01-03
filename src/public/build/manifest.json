@@ -4,7 +4,7 @@
         "name": "client"
     },
     "resources/css/app.css": {
-        "file": "assets/app-B7uJmOuR.css",
+        "file": "assets/app-35JpCWCV.css",
         "src": "resources/css/app.css",
         "isEntry": true
     },
@@ -16,7 +16,7 @@
         "imports": ["_client-Bx8gx_AZ.js"]
     },
     "resources/js/app.jsx": {
-        "file": "assets/app-DT5zxff4.js",
+        "file": "assets/app-CVnbQUXn.js",
         "name": "app",
         "src": "resources/js/app.jsx",
         "isEntry": true,
