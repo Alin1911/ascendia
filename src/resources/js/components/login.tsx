@@ -1,19 +1,54 @@
-'use client'
+'use client';
 
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Importă useNavigate
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Importă axios pentru a trimite datele
 import posthog from "posthog-js";
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState(null); // Pentru erorile de login
+  const navigate = useNavigate(); // Hook pentru redirecționare
+
   useEffect(() => {
     posthog.capture('Login Page');
-  }
-  , []);
-  
+  }, []);
+
+  // Functie pentru actualizarea valorilor inputurilor
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Functie pentru procesarea submitului formularului
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('/login', formData);
+      console.log('Login successful:', response.data);
+
+      // Resetează eventualele erori
+      setError(null);
+
+      navigate('/');
+      window.location.reload();
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Invalid email or password. Please try again.');
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -30,18 +65,34 @@ export default function Login() {
 
           <div className="mt-8">
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="email">Email address</Label>
                   <div className="mt-1">
-                    <Input id="email" name="email" type="email" autoComplete="email" required />
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      autoComplete="email"
+                      required
+                    />
                   </div>
                 </div>
 
                 <div>
                   <Label htmlFor="password">Password</Label>
                   <div className="mt-1">
-                    <Input id="password" name="password" type="password" autoComplete="current-password" required />
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      autoComplete="current-password"
+                      required
+                    />
                   </div>
                 </div>
 
@@ -59,6 +110,12 @@ export default function Login() {
                     </Link>
                   </div>
                 </div>
+
+                {error && (
+                  <div className="text-red-600 text-sm">
+                    {error}
+                  </div>
+                )}
 
                 <div>
                   <Button type="submit" className="w-full">
@@ -78,5 +135,5 @@ export default function Login() {
         />
       </div>
     </div>
-  )
+  );
 }

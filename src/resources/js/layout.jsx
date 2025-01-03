@@ -43,14 +43,14 @@ export default function Layout() {
         <nav className="hidden md:flex space-x-6">
           <Link to="/how-it-works" className="text-blue-900 hover:text-blue-700">How it Works</Link>
           <Link to="/mentor-search" className="text-blue-900 hover:text-blue-700">Find a Mentor</Link>
-          {user && <Link to="/account-settings" className="text-blue-900 hover:text-blue-700">Account Settings</Link>}
+          {!user && <Link to="/register" className="text-blue-900 hover:text-blue-700">Become a Mentor</Link>}
         </nav>
 
         <div>
           {user ? (
             <>
               <Button className="bg-green-500 hover:bg-green-600 text-white mx-2">
-                <Link to="/user/account">{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</Link>
+                <Link to="/account-settings">{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</Link>
               </Button>
               <Button className="bg-red-500 hover:bg-red-600 text-white" onClick={handleLogout}>
                 Logout
