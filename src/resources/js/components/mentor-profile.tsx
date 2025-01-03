@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -10,74 +12,26 @@ import { Calendar, Clock, DollarSign, Globe, Mail, MapPin, Phone, Star, Video } 
 import posthog from 'posthog-js'
 
 export default function MentorProfileComponent() {
-  const [activeTab, setActiveTab] = useState("about")
+  const { mentorId } = useParams(); // Get the mentorId from the URL
+  const [mentor, setMentor] = useState(null); // State to store mentor data
+  const [activeTab, setActiveTab] = useState("about");
 
   useEffect(() => {
+    // Fetch data when the component mounts
     posthog.capture('Mentor Profile Page');
-  }
-  , []);
-  
-  const mentor = {
-    name: "Dr. Emily Chen",
-    title: "AI Research Scientist & Tech Entrepreneur",
-    location: "San Francisco, CA",
-    rating: 4.9,
-    reviewCount: 127,
-    hourlyRate: 150,
-    expertise: ["Artificial Intelligence", "Machine Learning", "Data Science", "Tech Entrepreneurship"],
-    languages: ["English", "Mandarin Chinese"],
-    about: "With over 15 years of experience in AI and machine learning, I've led groundbreaking research projects and founded two successful tech startups. My passion lies in bridging the gap between cutting-edge AI research and practical business applications. I'm here to guide aspiring data scientists, AI engineers, and tech entrepreneurs on their journey to success.",
-    experience: [
-      {
-        title: "Founder & CEO",
-        company: "AInnova Tech",
-        period: "2018 - Present",
-        description: "Leading a team of 50+ in developing AI-powered solutions for healthcare and finance sectors."
-      },
-      {
-        title: "Senior Research Scientist",
-        company: "Google AI",
-        period: "2012 - 2018",
-        description: "Spearheaded research in natural language processing and computer vision, resulting in 20+ publications and 5 patents."
-      },
-      {
-        title: "Postdoctoral Researcher",
-        company: "Stanford University",
-        period: "2010 - 2012",
-        description: "Conducted research on deep learning algorithms for medical image analysis."
-      }
-    ],
-    education: [
-      {
-        degree: "Ph.D. in Computer Science",
-        institution: "MIT",
-        year: "2010"
-      },
-      {
-        degree: "M.S. in Artificial Intelligence",
-        institution: "Stanford University",
-        year: "2006"
-      },
-      {
-        degree: "B.S. in Computer Science",
-        institution: "UC Berkeley",
-        year: "2004"
-      }
-    ],
-    mentorshipAreas: [
-      "AI and Machine Learning Career Guidance",
-      "Tech Startup Strategy and Execution",
-      "Research to Product Translation",
-      "Leadership in Tech",
-      "Women in STEM Empowerment"
-    ],
-    achievements: [
-      "Named in Forbes 30 Under 30 for Enterprise Technology (2015)",
-      "Best Paper Award at NeurIPS 2017",
-      "Raised $50M in venture capital for AInnova Tech",
-      "TEDx speaker on 'The Future of AI in Healthcare'",
-      "Author of 'AI Entrepreneurship: From Lab to Market' (2020)"
-    ]
+    if (mentorId) {
+      axios.get(`/api/v1/mentor/${mentorId}`)
+        .then((response) => {
+          setMentor(response.data); // Set mentor data from API response
+        })
+        .catch((error) => {
+          console.error("Error fetching mentor data:", error);
+        });
+    }
+  }, [mentorId]); // Dependency on mentorId to re-fetch if it changes
+
+  if (!mentor) {
+    return <div>Loading...</div>; // Loading state until mentor data is fetched
   }
 
   return (

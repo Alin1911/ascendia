@@ -35,7 +35,7 @@ export default function MentorSearchComponent() {
 
     const fetchMentors = async () => {
       try {
-        const response = await axios.get("/mentors/search", {
+        const response = await axios.get("/api/v1/mentors/search", {
           params: { ...searchFilters, priceRange },
         });
         setMentors(response.data);

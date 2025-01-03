@@ -6,6 +6,83 @@ use Illuminate\Http\Request;
 
 class MentorController extends Controller
 {
+
+    public function show($id)
+    {
+        $mentor = [
+            'name' => 'Dr. Emily Chen',
+            'title' => 'AI Research Scientist & Tech Entrepreneur',
+            'location' => 'San Francisco, CA',
+            'rating' => 4.9,
+            'reviewCount' => 127,
+            'hourlyRate' => 150,
+            'expertise' => [
+                'Artificial Intelligence',
+                'Machine Learning',
+                'Data Science',
+                'Tech Entrepreneurship'
+            ],
+            'languages' => [
+                'English',
+                'Mandarin Chinese'
+            ],
+            'about' => "With over 15 years of experience in AI and machine learning, I've led groundbreaking research projects and founded two successful tech startups. My passion lies in bridging the gap between cutting-edge AI research and practical business applications. I'm here to guide aspiring data scientists, AI engineers, and tech entrepreneurs on their journey to success.",
+            'experience' => [
+                [
+                    'title' => 'Founder & CEO',
+                    'company' => 'AInnova Tech',
+                    'period' => '2018 - Present',
+                    'description' => 'Leading a team of 50+ in developing AI-powered solutions for healthcare and finance sectors.'
+                ],
+                [
+                    'title' => 'Senior Research Scientist',
+                    'company' => 'Google AI',
+                    'period' => '2012 - 2018',
+                    'description' => 'Spearheaded research in natural language processing and computer vision, resulting in 20+ publications and 5 patents.'
+                ],
+                [
+                    'title' => 'Postdoctoral Researcher',
+                    'company' => 'Stanford University',
+                    'period' => '2010 - 2012',
+                    'description' => 'Conducted research on deep learning algorithms for medical image analysis.'
+                ]
+            ],
+            'education' => [
+                [
+                    'degree' => 'Ph.D. in Computer Science',
+                    'institution' => 'MIT',
+                    'year' => '2010'
+                ],
+                [
+                    'degree' => 'M.S. in Artificial Intelligence',
+                    'institution' => 'Stanford University',
+                    'year' => '2006'
+                ],
+                [
+                    'degree' => 'B.S. in Computer Science',
+                    'institution' => 'UC Berkeley',
+                    'year' => '2004'
+                ]
+            ],
+            'mentorshipAreas' => [
+                'AI and Machine Learning Career Guidance',
+                'Tech Startup Strategy and Execution',
+                'Research to Product Translation',
+                'Leadership in Tech',
+                'Women in STEM Empowerment'
+            ],
+            'achievements' => [
+                'Named in Forbes 30 Under 30 for Enterprise Technology (2015)',
+                'Best Paper Award at NeurIPS 2017',
+                'Raised $50M in venture capital for AInnova Tech',
+                'TEDx speaker on "The Future of AI in Healthcare"',
+                'Author of "AI Entrepreneurship: From Lab to Market" (2020)'
+            ]
+        ];
+
+        return response()->json($mentor);
+    }
+
     public function search(Request $request)
     {
         // Filtrele primite (opțional)

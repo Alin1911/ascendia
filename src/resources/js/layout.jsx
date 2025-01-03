@@ -12,7 +12,7 @@ export default function Layout() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("/user");
+        const response = await axios.get("/api/v1/user");
         setUser(response.data);
       } catch {
         setUser(null);
