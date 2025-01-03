@@ -191,6 +191,7 @@ function MentorCard({
             </div>
           )}
         </div>
+        <Button className="mt-4">Book a Session</Button>
       </div>
     </div>
   );
